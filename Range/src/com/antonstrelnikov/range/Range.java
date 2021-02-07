@@ -52,14 +52,14 @@ public class Range {
         double from = Math.min(range1.from, range2.from);
         double to = Math.max(range1.to, range2.to);
 
-        return new Range[] {
+        return new Range[]{
                 new Range(from, to)
         };
     }
 
     public Range[] getDifference(Range decreasingRange, Range subtractedRange) {
         if (!decreasingRange.isInside(subtractedRange.from) && !subtractedRange.isInside(decreasingRange.from)) {
-            return new Range [] {decreasingRange};
+            return new Range[]{decreasingRange};
         } else if (subtractedRange.isInside(decreasingRange.from) && subtractedRange.isInside(decreasingRange.to)) {
             return null;
         } else if (decreasingRange.isInside(subtractedRange.from) && decreasingRange.isInside(subtractedRange.to)) {
@@ -69,12 +69,12 @@ public class Range {
             };
 
         } else if (decreasingRange.isInside(subtractedRange.from)) {
-            return new Range[] {
+            return new Range[]{
                     new Range(decreasingRange.from, subtractedRange.from)
             };
         }
 
-        return new Range[] {
+        return new Range[]{
                 new Range(subtractedRange.to, decreasingRange.to)
         };
     }
