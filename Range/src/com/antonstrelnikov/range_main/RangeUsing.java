@@ -29,9 +29,9 @@ public class RangeUsing {
         System.out.println("info - получение информации о диапазоне");
         System.out.println("check - проверка принадлежности числа диапазону");
         System.out.println("set - для изменения начального и конечного чисел диапазона");
-        System.out.println("union - объединение двух диапазонов");
-        System.out.println("intersection - пересечение двух диапазонов");
-        System.out.println("difference - разность двух диапазонов");
+        System.out.println("union - объединение диапазона с другим");
+        System.out.println("intersection - пересечение диапазона с другим");
+        System.out.println("difference - разность диапазона с другим");
         System.out.println("exit - для выхода из программы");
         System.out.println();
 
@@ -87,25 +87,17 @@ public class RangeUsing {
             }
 
             if (command.equals(unionCommand)) {
-                System.out.println("Введите певрое число для первого диапазона: ");
+                System.out.println("Введите певрое число для второго диапазона: ");
                 double from = scanner.nextDouble();
 
-                System.out.println("Введите последнее число для первого диапазона: ");
-                double to = scanner.nextDouble();
-
-                Range range1 = new Range(from, to);
-
-                System.out.println("Введите певрое число для второго диапазона: ");
-                from = scanner.nextDouble();
-
                 System.out.println("Введите последнее число для второго диапазона: ");
-                to = scanner.nextDouble();
+                double to = scanner.nextDouble();
 
                 Range range2 = new Range(from, to);
 
                 scanner.nextLine();
 
-                Range[] union = range.getUnion(range1, range2);
+                Range[] union = range.getUnion(range2);
                 StringBuilder unionResult = new StringBuilder();
 
                 for (Range unionRange : union) {
@@ -120,25 +112,17 @@ public class RangeUsing {
             }
 
             if (command.equals(intersectionCommand)) {
-                System.out.println("Введите певрое число для первого диапазона: ");
+                System.out.println("Введите певрое число для второго диапазона: ");
                 double from = scanner.nextDouble();
 
-                System.out.println("Введите последнее число для первого диапазона: ");
-                double to = scanner.nextDouble();
-
-                Range range1 = new Range(from, to);
-
-                System.out.println("Введите певрое число для второго диапазона: ");
-                from = scanner.nextDouble();
-
                 System.out.println("Введите последнее число для второго диапазона: ");
-                to = scanner.nextDouble();
+                double to = scanner.nextDouble();
 
                 Range range2 = new Range(from, to);
 
                 scanner.nextLine();
 
-                Range intersection = range.getIntersection(range1, range2);
+                Range intersection = range.getIntersection(range2);
 
                 if (intersection != null) {
                     System.out.println("Результат пересечения: " + intersection.getFrom() + " - " + intersection.getTo());
@@ -152,27 +136,19 @@ public class RangeUsing {
             }
 
             if (command.equals(differenceCommand)) {
-                System.out.println("Введите певрое число для первого диапазона: ");
+                System.out.println("Введите певрое число для вычитаемого диапазона: ");
                 double from = scanner.nextDouble();
 
-                System.out.println("Введите последнее число для первого диапазона: ");
+                System.out.println("Введите последнее число для вычитаемого диапазона: ");
                 double to = scanner.nextDouble();
 
-                Range range1 = new Range(from, to);
-
-                System.out.println("Введите певрое число для второго диапазона: ");
-                from = scanner.nextDouble();
-
-                System.out.println("Введите последнее число для второго диапазона: ");
-                to = scanner.nextDouble();
-
-                Range range2 = new Range(from, to);
+                Range subtractedRange = new Range(from, to);
 
                 scanner.nextLine();
 
-                Range[] difference = range.getDifference(range1, range2);
+                Range[] difference = range.getDifference(subtractedRange);
 
-                if (difference == null) {
+                if (difference.length == 0) {
                     System.out.println("Результат вычитания - пустое множество");
 
                     System.out.println();

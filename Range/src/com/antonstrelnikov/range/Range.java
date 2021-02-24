@@ -33,9 +33,9 @@ public class Range {
         return number >= from && number <= to;
     }
 
-    public Range getIntersection(Range range1, Range range2) {
-        double from = Math.max(range1.from, range2.from);
-        double to = Math.min(range1.to, range2.to);
+    public Range getIntersection(Range range) {
+        double from = Math.max(this.from, range.from);
+        double to = Math.min(this.to, range.to);
 
         if (from < to) {
             return new Range(from, to);
@@ -44,38 +44,48 @@ public class Range {
         return null;
     }
 
-    public Range[] getUnion(Range range1, Range range2) {
-        if (!range1.isInside(range2.from) && !range2.isInside(range1.from)) {
-            return new Range[]{range1, range2};
+    public Range[] getUnion(Range range) {
+        if (this.to < range.from || range.to < this.from) {
+            return new Range[]{
+                    new Range(this.from, this.to),
+                    new Range(range.from, range.to)
+            };
         }
 
-        double from = Math.min(range1.from, range2.from);
-        double to = Math.max(range1.to, range2.to);
+        double from = Math.min(this.from, range.from);
+        double to = Math.max(this.to, range.to);
 
         return new Range[]{
                 new Range(from, to)
         };
     }
 
-    public Range[] getDifference(Range decreasingRange, Range subtractedRange) {
-        if (!decreasingRange.isInside(subtractedRange.from) && !subtractedRange.isInside(decreasingRange.from)) {
-            return new Range[]{decreasingRange};
-        } else if (subtractedRange.isInside(decreasingRange.from) && subtractedRange.isInside(decreasingRange.to)) {
-            return null;
-        } else if (decreasingRange.isInside(subtractedRange.from) && decreasingRange.isInside(subtractedRange.to)) {
+    public Range[] getDifference(Range subtractedRange) {
+        if (to < subtractedRange.from || subtractedRange.to < from) {
             return new Range[]{
-                    new Range(decreasingRange.from, subtractedRange.from),
-                    new Range(subtractedRange.to, decreasingRange.to)
+                    new Range(to, from)
             };
+        }
 
-        } else if (decreasingRange.isInside(subtractedRange.from)) {
+        if (subtractedRange.from <= from && subtractedRange.to >= to) {
+            return new Range[]{};
+        }
+
+        if (from < subtractedRange.from && to > subtractedRange.to) {
             return new Range[]{
-                    new Range(decreasingRange.from, subtractedRange.from)
+                    new Range(from, subtractedRange.from),
+                    new Range(subtractedRange.to, to)
+            };
+        }
+
+        if (subtractedRange.from < to && subtractedRange.from > from) {
+            return new Range[]{
+                    new Range(from, subtractedRange.from)
             };
         }
 
         return new Range[]{
-                new Range(subtractedRange.to, decreasingRange.to)
+                new Range(subtractedRange.to, to)
         };
     }
 }
