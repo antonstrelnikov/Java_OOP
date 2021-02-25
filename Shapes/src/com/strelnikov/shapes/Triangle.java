@@ -40,4 +40,39 @@ public class Triangle implements Shape {
 
         return side1 + side2 + side3;
     }
+
+    @Override
+    public String toString() {
+        return "Triangle. x1: " + x1 + "; y1: " + y1 + "; x2: " + x2 + "; y2: " + y2 + "; x3: " + x3 + "; y3: " + y3;
+    }
+
+    @Override
+    public boolean equals(Object shape) {
+        if (shape == this) {
+            return true;
+        }
+
+        if (shape == null || shape.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Triangle triangle = (Triangle) shape;
+
+        return x1 == triangle.x1 && x2 == triangle.x2 && x3 == triangle.x3 &&
+                y1 == triangle.y1 && y2 == triangle.y2 && y3 == triangle.y3;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 5;
+        int hash = 1;
+        hash = prime * hash + Double.hashCode(x1);
+        hash = prime * hash + Double.hashCode(x2);
+        hash = prime * hash + Double.hashCode(x3);
+        hash = prime * hash + Double.hashCode(y1);
+        hash = prime * hash + Double.hashCode(y2);
+        hash = prime * hash + Double.hashCode(y3);
+
+        return hash;
+    }
 }
