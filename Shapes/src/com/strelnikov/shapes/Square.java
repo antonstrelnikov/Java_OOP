@@ -2,9 +2,17 @@ package com.strelnikov.shapes;
 
 public class Square implements Shape {
     private double sideLength;
-    private static final int sideNumber = 4;
+    private static final int SIDES_COUNT = 4;
 
     public Square(double sideLength) {
+        this.sideLength = sideLength;
+    }
+
+    public double getSideLength() {
+        return sideLength;
+    }
+
+    public void setSideLength(double sideLength) {
         this.sideLength = sideLength;
     }
 
@@ -25,7 +33,7 @@ public class Square implements Shape {
 
     @Override
     public double getPerimeter() {
-        return sideNumber * sideLength;
+        return SIDES_COUNT * sideLength;
     }
 
     @Override
@@ -34,16 +42,16 @@ public class Square implements Shape {
     }
 
     @Override
-    public boolean equals(Object shape) {
-        if (shape == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
 
-        if (shape == null || shape.getClass() != this.getClass()) {
+        if (object == null || object.getClass() != getClass()) {
             return false;
         }
 
-        Square square = (Square) shape;
+        Square square = (Square) object;
 
         return sideLength == square.sideLength;
     }
@@ -56,6 +64,4 @@ public class Square implements Shape {
 
         return hash;
     }
-
-
 }

@@ -7,6 +7,13 @@ public class Circle implements Shape {
         this.radius = radius;
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
 
     @Override
     public double getWidth() {
@@ -15,12 +22,12 @@ public class Circle implements Shape {
 
     @Override
     public double getHeight() {
-        return radius + radius;
+        return radius * 2;
     }
 
     @Override
     public double getArea() {
-        return Math.PI * Math.pow(radius, 2);
+        return Math.PI * radius * radius;
     }
 
     @Override
@@ -34,16 +41,16 @@ public class Circle implements Shape {
     }
 
     @Override
-    public boolean equals(Object shape) {
-        if (shape == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
 
-        if (shape == null || shape.getClass() != this.getClass()) {
+        if (object == null || object.getClass() != getClass()) {
             return false;
         }
 
-        Circle circle = (Circle) shape;
+        Circle circle = (Circle) object;
 
         return radius == circle.radius;
     }
@@ -56,6 +63,4 @@ public class Circle implements Shape {
 
         return hash;
     }
-
 }
-

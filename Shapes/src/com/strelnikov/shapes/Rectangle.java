@@ -9,6 +9,13 @@ public class Rectangle implements Shape {
         this.height = height;
     }
 
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
 
     @Override
     public double getWidth() {
@@ -36,16 +43,16 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public boolean equals(Object shape) {
-        if (shape == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
 
-        if (shape == null || shape.getClass() != this.getClass()) {
+        if (object == null || object.getClass() != getClass()) {
             return false;
         }
 
-        Rectangle rectangle = (Rectangle) shape;
+        Rectangle rectangle = (Rectangle) object;
 
         return width == rectangle.width && height == rectangle.height;
     }
@@ -59,5 +66,4 @@ public class Rectangle implements Shape {
 
         return hash;
     }
-
 }
