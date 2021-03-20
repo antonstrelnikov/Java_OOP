@@ -5,8 +5,8 @@ public class Range {
     private double to;
 
     public Range(double from, double to) {
-        this.from = Math.min(from, to);
-        this.to = Math.max(from, to);
+        this.from = from;
+        this.to = to;
     }
 
     public double getFrom() {
@@ -45,47 +45,39 @@ public class Range {
     }
 
     public Range[] getUnion(Range range) {
-        if (this.to < range.from || range.to < this.from) {
+        if (to < range.from || range.to < from) {
             return new Range[]{
-                    new Range(this.from, this.to),
+                    new Range(from, to),
                     new Range(range.from, range.to)
             };
         }
 
-        double from = Math.min(this.from, range.from);
-        double to = Math.max(this.to, range.to);
-
         return new Range[]{
-                new Range(from, to)
+                new Range(Math.min(from, range.from), Math.max(to, range.to))
         };
     }
 
-    public Range[] getDifference(Range subtractedRange) {
-        if (to < subtractedRange.from || subtractedRange.to < from) {
-            return new Range[]{
-                    new Range(to, from)
-            };
+    public Range[] getDifference(Range range) {
+        if (to <= range.from || range.to <= from) {
+            return new Range[]{new Range(to, from)};
         }
 
-        if (subtractedRange.from <= from && subtractedRange.to >= to) {
+        if (range.from <= from && range.to >= to) {
             return new Range[]{};
         }
 
-        if (from < subtractedRange.from && to > subtractedRange.to) {
+        if (from < range.from && to > range.to) {
             return new Range[]{
-                    new Range(from, subtractedRange.from),
-                    new Range(subtractedRange.to, to)
+                    new Range(from, range.from),
+                    new Range(range.to, to)
             };
         }
 
-        if (subtractedRange.from < to && subtractedRange.from > from) {
-            return new Range[]{
-                    new Range(from, subtractedRange.from)
-            };
-        }
+        return new Range[]{new Range(from, range.from)};
+    }
 
-        return new Range[]{
-                new Range(subtractedRange.to, to)
-        };
+    @Override
+    public String toString() {
+        return "(" + from + "; " + to + ")";
     }
 }

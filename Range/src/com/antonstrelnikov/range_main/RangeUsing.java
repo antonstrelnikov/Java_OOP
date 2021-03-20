@@ -101,7 +101,7 @@ public class RangeUsing {
                 StringBuilder unionResult = new StringBuilder();
 
                 for (Range unionRange : union) {
-                    unionResult.append(unionRange.getFrom()).append(" - ").append(unionRange.getTo()).append(" ");
+                    unionResult.append(unionRange.toString()).append(" ");
                 }
 
                 System.out.println("Результат объединения: " + unionResult);
@@ -125,7 +125,7 @@ public class RangeUsing {
                 Range intersection = range.getIntersection(range2);
 
                 if (intersection != null) {
-                    System.out.println("Результат пересечения: " + intersection.getFrom() + " - " + intersection.getTo());
+                    System.out.println("Результат пересечения: " + intersection.toString());
                 } else {
                     System.out.println("Диапазоны не пересекаются!");
                 }
@@ -158,8 +158,8 @@ public class RangeUsing {
 
                 StringBuilder differenceResult = new StringBuilder();
 
-                for (Range unionRange : difference) {
-                    differenceResult.append(unionRange.getFrom()).append(" - ").append(unionRange.getTo()).append(" ");
+                for (Range differenceRange : difference) {
+                    differenceResult.append(differenceRange.getFrom()).append(" ");
                 }
 
                 System.out.println("Результат вычитания: " + differenceResult);
